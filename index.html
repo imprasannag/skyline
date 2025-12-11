@@ -18,6 +18,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
     
+    <!-- EmailJS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script>
+        // Initialize EmailJS with your Public Key
+        emailjs.init('3hB554qsU4JWg82ha');
+    </script>
+    
     <style>
         /* ===== CSS RESET & VARIABLES ===== */
         :root {
@@ -614,8 +621,8 @@
             transition: all 0.4s ease;
             height: 380px;
             border: 1px solid rgba(255, 255, 255, 0.1);
-            opacity: 1; /* Changed from 0 to 1 */
-            transform: translateY(0); /* Changed from 30px to 0 */
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .project-card.animate {
@@ -861,8 +868,8 @@
 
         .about-card {
             padding: 3rem;
-            opacity: 1; /* Changed from 0 to 1 */
-            transform: translateX(0); /* Changed from -50px to 0 */
+            opacity: 1;
+            transform: translateX(0);
         }
 
         .about-card.animate {
@@ -884,8 +891,8 @@
 
         .stat {
             text-align: center;
-            opacity: 1; /* Changed from 0 to 1 */
-            transform: translateY(0); /* Changed from 20px to 0 */
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .stat.animate {
@@ -1015,8 +1022,8 @@
             height: 100%;
             display: flex;
             flex-direction: column;
-            opacity: 1; /* Changed from 0 to 1 */
-            transform: translateY(0); /* Changed from 30px to 0 */
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .service-card.animate {
@@ -1087,8 +1094,8 @@
             text-align: center;
             padding: 2rem;
             transition: all 0.3s ease;
-            opacity: 1; /* Changed from 0 to 1 */
-            transform: translateY(0); /* Changed from 30px to 0 */
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .advantage.animate {
@@ -1128,8 +1135,8 @@
         .testimonial-card {
             padding: 2rem;
             transition: all 0.3s ease;
-            opacity: 1; /* Changed from 0 to 1 */
-            transform: translateY(0); /* Changed from 30px to 0 */
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .testimonial-card.animate {
@@ -1184,8 +1191,8 @@
             display: flex;
             flex-direction: column;
             height: 100%;
-            opacity: 1; /* Changed from 0 to 1 */
-            transform: translateY(0); /* Changed from 30px to 0 */
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .pricing-card.animate {
@@ -1369,8 +1376,8 @@
             z-index: 1;
             backdrop-filter: blur(10px);
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            opacity: 1; /* Changed from 0 to 1 */
-            transform: translateY(0); /* Changed from 30px to 0 */
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .consultation-card.animate {
@@ -1424,8 +1431,8 @@
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
-            opacity: 1; /* Changed from 0 to 1 */
-            transform: translateY(0); /* Changed from 30px to 0 */
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .team-card.animate {
@@ -1633,6 +1640,7 @@
 
         .form-group {
             margin-bottom: 1.2rem;
+            position: relative;
         }
 
         .form-label {
@@ -1672,23 +1680,147 @@
             line-height: 1.5;
         }
 
-        select.form-control {
-            appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%2300f3ff' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 1rem center;
-            background-size: 12px;
-            padding-right: 2.5rem;
-        }
-
-        .form-actions {
-            margin-top: 2rem;
-        }
-
-        .form-actions .btn-primary {
+        /* ===== CUSTOM DROPDOWN STYLES ===== */
+        .custom-select-wrapper {
+            position: relative;
             width: 100%;
-            padding: 0.9rem;
+        }
+
+        .custom-select {
+            position: relative;
+            width: 100%;
+            cursor: pointer;
+        }
+
+        .custom-select-trigger {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
             font-size: 0.95rem;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .custom-select-trigger:hover {
+            border-color: var(--neon-blue);
+        }
+
+        .custom-select-trigger::after {
+            content: '▼';
+            font-size: 0.7rem;
+            color: var(--neon-blue);
+            transition: transform 0.3s ease;
+        }
+
+        .custom-select.open .custom-select-trigger::after {
+            transform: rotate(180deg);
+        }
+
+        .custom-options {
+            position: absolute;
+            top: calc(100% + 5px);
+            left: 0;
+            width: 100%;
+            background: var(--midnight-blue);
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(0, 243, 255, 0.3);
+            z-index: 1001;
+            max-height: 300px;
+            overflow-y: auto;
+            display: none;
+            animation: dropdown-appear 0.3s ease;
+        }
+
+        @keyframes dropdown-appear {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .custom-select.open .custom-options {
+            display: block;
+        }
+
+        .custom-option {
+            padding: 0.8rem 1rem;
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .custom-option:last-child {
+            border-bottom: none;
+        }
+
+        .custom-option:hover {
+            background: rgba(0, 243, 255, 0.1);
+            color: var(--neon-blue);
+        }
+
+        .custom-option.selected {
+            background: linear-gradient(135deg, rgba(157, 0, 255, 0.15), rgba(0, 243, 255, 0.15));
+            color: var(--neon-blue);
+            font-weight: 600;
+        }
+
+        .custom-option.disabled {
+            color: rgba(255, 255, 255, 0.5);
+            cursor: not-allowed;
+            font-style: italic;
+        }
+
+        .custom-option.disabled:hover {
+            background: transparent;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Hide the original select but keep it for form submission */
+        .original-select {
+            display: none;
+        }
+
+        /* ===== FORM STATUS MESSAGES ===== */
+        .form-status {
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 500;
+            display: none;
+        }
+
+        .form-status.success {
+            background: rgba(46, 204, 113, 0.1);
+            border: 1px solid rgba(46, 204, 113, 0.3);
+            color: #2ecc71;
+            display: block;
+        }
+
+        .form-status.error {
+            background: rgba(231, 76, 60, 0.1);
+            border: 1px solid rgba(231, 76, 60, 0.3);
+            color: #e74c3c;
+            display: block;
+        }
+
+        .form-status.loading {
+            background: rgba(52, 152, 219, 0.1);
+            border: 1px solid rgba(52, 152, 219, 0.3);
+            color: #3498db;
+            display: block;
         }
 
         /* ===== FOOTER ===== */
@@ -2237,8 +2369,26 @@
                     </div>
                 </div>
             </div>
-         
-    
+            
+            <!-- Project 3 -->
+            <div class="project-card glass" data-category="branding" data-project="3">
+                <img src="https://images.unsplash.com/photo-1567446537710-0e9b8d4d8c4d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Brand Identity" class="project-image">
+                <div class="project-content">
+                    <div class="project-header">
+                        <div>
+                            <h3 class="project-title">Zenith Tech Branding</h3>
+                            <span class="project-category">Brand Identity</span>
+                        </div>
+                    </div>
+                    <p class="project-description">Complete brand identity system including logo, typography, color palette, and brand guidelines.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Logo Design</span>
+                        <span class="tech-tag">Brand Strategy</span>
+                        <span class="tech-tag">Visual Identity</span>
+                        <span class="tech-tag">Style Guide</span>
+                    </div>
+                </div>
+            </div>
             
             <!-- Project 4 -->
             <div class="project-card glass" data-category="web" data-project="4">
@@ -2468,7 +2618,7 @@
                     <p>"Skyline transformed our digital presence completely. The results were beyond expectations! Our engagement increased by 300% in just 3 months."</p>
                     <div class="testimonial-author">
                         <h4>John</h4>
-                        <p>CEO, olympia Groups Inc.</p>
+                        <p>CEO, Arena Inc.</p>
                     </div>
                 </div>
             </div>
@@ -2476,8 +2626,8 @@
                 <div class="testimonial-content">
                     <p>"The AI solutions provided by Skyline have automated 70% of our manual processes. Incredible efficiency boost with minimal investment."</p>
                     <div class="testimonial-author">
-                        <h4>Kavin</h4>
-                        <p>Founder, Vijayapathi Traders</p>
+                        <h4>Sarah Chen</h4>
+                        <p>MD, Vijayapathi Traders</p>
                     </div>
                 </div>
             </div>
@@ -2486,7 +2636,7 @@
                     <p>"Skyline Academy gave our team the skills we needed to compete in today's market. Practical knowledge that we could implement immediately."</p>
                     <div class="testimonial-author">
                         <h4>Nagarajan</h4>
-                        <p>Director, EN Constructions</p>
+                        <p> Director, EN Constructions</p>
                     </div>
                 </div>
             </div>
@@ -2745,29 +2895,39 @@
             </div>
             
             <form id="contactForm">
+                <!-- Hidden fields for date and time -->
+                <input type="hidden" id="date" name="date">
+                <input type="hidden" id="time" name="time">
+                
+                <!-- Form status messages -->
+                <div id="formStatus" class="form-status"></div>
+                
                 <div class="form-group">
                     <label for="name" class="form-label">Full Name *</label>
-                    <input type="text" id="name" class="form-control" placeholder="Enter your full name" required>
+                    <input type="text" id="name" name="from_name" class="form-control" placeholder="Enter your full name" required>
                 </div>
                 
                 <div class="form-group">
                     <label for="email" class="form-label">Email Address *</label>
-                    <input type="email" id="email" class="form-control" placeholder="Enter your email address" required>
+                    <input type="email" id="email" name="reply_to" class="form-control" placeholder="Enter your email address" required>
                 </div>
                 
                 <div class="form-group">
                     <label for="phone" class="form-label">Phone Number *</label>
-                    <input type="tel" id="phone" class="form-control" placeholder="Enter your phone number" required>
+                    <input type="tel" id="phone" name="phone" class="form-control" placeholder="Enter your phone number" required>
                 </div>
                 
                 <div class="form-group">
                     <label for="business" class="form-label">About Your Business *</label>
-                    <input type="text" id="business" class="form-control" placeholder="What does your business do?" required>
+                    <input type="text" id="business" name="business" class="form-control" placeholder="What does your business do?" required>
                 </div>
                 
                 <div class="form-group">
                     <label for="service" class="form-label">Service Interested In *</label>
-                    <select id="service" class="form-control" required>
+                    <!-- Custom dropdown will be inserted here by JavaScript -->
+                    <div id="custom-dropdown-container"></div>
+                    <!-- Hidden original select for form submission -->
+                    <select id="service" name="service" class="original-select" required>
                         <option value="" disabled selected>Select a service</option>
                         <option value="creative">Creative Studio</option>
                         <option value="web">Web & Software Development</option>
@@ -2783,11 +2943,11 @@
                 
                 <div class="form-group">
                     <label for="description" class="form-label">Project Description *</label>
-                    <textarea id="description" class="form-control" placeholder="Tell us about your project requirements, goals, and timeline..." required></textarea>
+                    <textarea id="description" name="description" class="form-control" placeholder="Tell us about your project requirements, goals, and timeline..." required></textarea>
                 </div>
                 
                 <div class="form-actions">
-                    <button type="submit" class="btn-primary">Submit Request</button>
+                    <button type="submit" class="btn-primary" id="submitBtn">Submit Request</button>
                 </div>
             </form>
         </div>
@@ -2810,6 +2970,7 @@
             initProjectDetails();
             initExploreServices();
             initDataFlow();
+            initCustomDropdown(); // Initialize custom dropdown
             
             // Preloader
             const preloader = document.createElement('div');
@@ -2871,6 +3032,115 @@
                 }, 1500);
             });
         });
+
+        // Custom Dropdown Initialization
+        function initCustomDropdown() {
+            const select = document.getElementById('service');
+            const container = document.getElementById('custom-dropdown-container');
+            
+            if (!select || !container) return;
+            
+            // Get all options from the select
+            const options = Array.from(select.options);
+            
+            // Create custom dropdown HTML
+            const dropdownHTML = `
+                <div class="custom-select-wrapper">
+                    <div class="custom-select">
+                        <div class="custom-select-trigger">
+                            <span class="selected-value">Select a service</span>
+                        </div>
+                        <div class="custom-options">
+                            ${options.map(option => `
+                                <div class="custom-option ${option.disabled ? 'disabled' : ''} ${option.selected ? 'selected' : ''}" 
+                                      data-value="${option.value}" 
+                                      ${option.disabled ? 'style="cursor: not-allowed;"' : ''}>
+                                    ${option.text}
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Insert custom dropdown
+            container.innerHTML = dropdownHTML;
+            
+            // Get references to custom dropdown elements
+            const customSelect = container.querySelector('.custom-select');
+            const customTrigger = container.querySelector('.custom-select-trigger');
+            const selectedValue = container.querySelector('.selected-value');
+            const customOptions = container.querySelectorAll('.custom-option');
+            const originalSelect = document.getElementById('service');
+            
+            // Toggle dropdown on trigger click
+            customTrigger.addEventListener('click', (e) => {
+                e.stopPropagation();
+                customSelect.classList.toggle('open');
+                
+                // Close other open dropdowns
+                document.querySelectorAll('.custom-select.open').forEach(otherSelect => {
+                    if (otherSelect !== customSelect) {
+                        otherSelect.classList.remove('open');
+                    }
+                });
+            });
+            
+            // Handle option selection
+            customOptions.forEach(option => {
+                if (!option.classList.contains('disabled')) {
+                    option.addEventListener('click', () => {
+                        const value = option.getAttribute('data-value');
+                        const text = option.textContent;
+                        
+                        // Update custom dropdown
+                        selectedValue.textContent = text;
+                        customSelect.classList.remove('open');
+                        
+                        // Update all options
+                        customOptions.forEach(opt => opt.classList.remove('selected'));
+                        option.classList.add('selected');
+                        
+                        // Update original select
+                        originalSelect.value = value;
+                        
+                        // Trigger change event on original select
+                        const event = new Event('change', { bubbles: true });
+                        originalSelect.dispatchEvent(event);
+                    });
+                }
+            });
+            
+            // Close dropdown when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!customSelect.contains(e.target)) {
+                    customSelect.classList.remove('open');
+                }
+            });
+            
+            // Close dropdown on escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    customSelect.classList.remove('open');
+                }
+            });
+            
+            // Update custom dropdown when original select changes programmatically
+            originalSelect.addEventListener('change', () => {
+                const selectedOption = originalSelect.options[originalSelect.selectedIndex];
+                if (selectedOption) {
+                    selectedValue.textContent = selectedOption.textContent;
+                    
+                    // Update custom options selection
+                    customOptions.forEach(option => {
+                        option.classList.remove('selected');
+                        if (option.getAttribute('data-value') === originalSelect.value) {
+                            option.classList.add('selected');
+                        }
+                    });
+                }
+            });
+        }
 
         // Initialize data flow animation for about section
         function initDataFlow() {
@@ -2986,7 +3256,7 @@
                         "45% increase in user engagement"
                     ]
                 },
-               
+          
                 3: {
                     title: "Data Analytics Dashboard",
                     category: "Web Development",
@@ -3016,7 +3286,7 @@
                 },
                 4: {
                     title: "Viral Social Campaign",
-                    category: "Digital Marketing",
+                   category: "Digital Marketing",
                     image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80",
                     description: "Multi-platform social media campaign that generated unprecedented engagement and brand awareness through strategic content creation.",
                     features: [
@@ -3181,7 +3451,7 @@
             const modal = document.getElementById('contactModal');
             const modalTitle = document.getElementById('modalTitle');
             const modalDescription = document.getElementById('modalDescription');
-            const serviceSelect = document.getElementById('service');
+            const originalSelect = document.getElementById('service');
             
             serviceCards.forEach(card => {
                 card.addEventListener('click', () => {
@@ -3214,7 +3484,22 @@
                     
                     modalTitle.textContent = title;
                     modalDescription.textContent = description;
-                    serviceSelect.value = service;
+                    originalSelect.value = service;
+                    
+                    // Update custom dropdown
+                    const selectedValue = document.querySelector('.selected-value');
+                    const customOptions = document.querySelectorAll('.custom-option');
+                    
+                    if (selectedValue) {
+                        selectedValue.textContent = originalSelect.options[originalSelect.selectedIndex].textContent;
+                    }
+                    
+                    customOptions.forEach(option => {
+                        option.classList.remove('selected');
+                        if (option.getAttribute('data-value') === service) {
+                            option.classList.add('selected');
+                        }
+                    });
                     
                     modal.classList.add('active');
                     document.body.style.overflow = 'hidden';
@@ -3227,7 +3512,7 @@
             const modal = document.getElementById('contactModal');
             const modalTitle = document.getElementById('modalTitle');
             const modalDescription = document.getElementById('modalDescription');
-            const serviceSelect = document.getElementById('service');
+            const originalSelect = document.getElementById('service');
             
             pricingButtons.forEach(btn => {
                 btn.addEventListener('click', () => {
@@ -3256,7 +3541,22 @@
                     
                     modalTitle.textContent = title;
                     modalDescription.textContent = description;
-                    serviceSelect.value = plan;
+                    originalSelect.value = plan;
+                    
+                    // Update custom dropdown
+                    const selectedValue = document.querySelector('.selected-value');
+                    const customOptions = document.querySelectorAll('.custom-option');
+                    
+                    if (selectedValue) {
+                        selectedValue.textContent = originalSelect.options[originalSelect.selectedIndex].textContent;
+                    }
+                    
+                    customOptions.forEach(option => {
+                        option.classList.remove('selected');
+                        if (option.getAttribute('data-value') === plan) {
+                            option.classList.add('selected');
+                        }
+                    });
                     
                     modal.classList.add('active');
                     document.body.style.overflow = 'hidden';
@@ -3264,121 +3564,119 @@
             });
         }
 
-   function initContactForm() {
-    const modal = document.getElementById('contactModal');
-    const closeBtn = document.getElementById('modalClose');
-    const form = document.getElementById('contactForm');
-    const heroCta = document.getElementById('hero-cta');
-    
-    // Open modal from hero CTA
-    if (heroCta) {
-        heroCta.addEventListener('click', () => {
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        });
-    }
-    
-    // Close modal
-    closeBtn.addEventListener('click', () => {
-        modal.classList.remove('active');
-        document.body.style.overflow = 'auto';
-    });
-    
-    // Close modal when clicking outside
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            modal.classList.remove('active');
-            document.body.style.overflow = 'auto';
+        // FIXED EmailJS Contact Form Function
+        function initContactForm() {
+            const modal = document.getElementById('contactModal');
+            const closeBtn = document.getElementById('modalClose');
+            const form = document.getElementById('contactForm');
+            const formStatus = document.getElementById('formStatus');
+            const heroCta = document.getElementById('hero-cta');
+            const submitBtn = document.getElementById('submitBtn');
+            
+            // Open modal from hero CTA
+            if (heroCta) {
+                heroCta.addEventListener('click', () => {
+                    modal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                    // Reset form status
+                    formStatus.className = 'form-status';
+                    formStatus.textContent = '';
+                });
+            }
+            
+            // Close modal
+            closeBtn.addEventListener('click', () => {
+                modal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+            
+            // Close modal when clicking outside
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+            
+            // Form submission using EmailJS
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                // Set current date and time
+                const now = new Date();
+                document.getElementById('date').value = now.toLocaleDateString();
+                document.getElementById('time').value = now.toLocaleTimeString();
+                
+                // Show loading state
+                submitBtn.textContent = 'Sending...';
+                submitBtn.disabled = true;
+                formStatus.className = 'form-status loading';
+                formStatus.textContent = 'Sending your message...';
+                formStatus.style.display = 'block';
+                
+                try {
+                    // Send email using EmailJS with correct service ID and template ID
+                    const response = await emailjs.sendForm(
+                        'service_5wfe6d6', // Your EmailJS Service ID
+                        'template_t8fc2xa', // Your Template ID
+                        form,
+                        '3hB554qsU4JWg82ha' // Your Public Key
+                    );
+                    
+                    // Success
+                    formStatus.className = 'form-status success';
+                    formStatus.textContent = 'Thank you! Your message has been sent successfully. We\'ll get back to you within 24 hours.';
+                    
+                    // Log success
+                    console.log('Form submitted successfully via EmailJS:', response.status, response.text);
+                    
+                    // Reset form after 3 seconds
+                    setTimeout(() => {
+                        form.reset();
+                        submitBtn.textContent = 'Submit Request';
+                        submitBtn.disabled = false;
+                        
+                        // Reset custom dropdown
+                        const selectedValue = document.querySelector('.selected-value');
+                        const customOptions = document.querySelectorAll('.custom-option');
+                        
+                        if (selectedValue) {
+                            selectedValue.textContent = 'Select a service';
+                        }
+                        
+                        customOptions.forEach(option => {
+                            option.classList.remove('selected');
+                            if (option.getAttribute('data-value') === '') {
+                                option.classList.add('selected');
+                            }
+                        });
+                        
+                        // Close modal after 4 seconds
+                        setTimeout(() => {
+                            modal.classList.remove('active');
+                            document.body.style.overflow = 'auto';
+                            formStatus.style.display = 'none';
+                        }, 4000);
+                    }, 3000);
+                    
+                } catch (error) {
+                    // Error
+                    console.error('EmailJS Error:', error);
+                    
+                    formStatus.className = 'form-status error';
+                    formStatus.textContent = 'Sorry, there was an error sending your message. Please try again or email us directly at skylinedigitalservicess@gmail.com';
+                    
+                    // Reset button
+                    submitBtn.textContent = 'Submit Request';
+                    submitBtn.disabled = false;
+                    
+                    // Optional: Hide error after 10 seconds
+                    setTimeout(() => {
+                        formStatus.style.display = 'none';
+                    }, 10000);
+                }
+            });
         }
-    });
-    
-    // Form submission using mailto
-    form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        
-        // Get form data
-        const name = document.getElementById('name').value;
-        const email = document.getElementById('email').value;
-        const phone = document.getElementById('phone').value;
-        const business = document.getElementById('business').value;
-        const service = document.getElementById('service').value;
-        const description = document.getElementById('description').value;
-        
-        // Format date and time
-        const now = new Date();
-        const date = now.toLocaleDateString();
-        const time = now.toLocaleTimeString();
-        
-        // Create email content
-        const subject = `New Inquiry: ${service} - ${name}`;
-        // Alternative email body template (more professional)
-const body = `
-==================================================
-NEW CLIENT INQUIRY - SKYLINE DIGITAL SERVICES
-==================================================
-
-📅 SUBMISSION DATE: ${date}
-⏰ SUBMISSION TIME: ${time}
-
-👤 CLIENT DETAILS
-────────────────────
-• Full Name: ${name}
-• Email Address: ${email}
-• Phone Number: ${phone}
-• Business Type: ${business}
-
-🎯 SERVICE REQUESTED
-────────────────────
-• Service: ${service}
-
-📋 PROJECT DESCRIPTION
-────────────────────
-${description}
-
-==================================================
-Submitted via Skyline Digital Services Website
-Website: [Your Website URL]
-==================================================
-        `.trim();
-        
-        // Create mailto link
-        const mailtoLink = `mailto:skylinedigitalservicess@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-        
-        // Store form data in localStorage temporarily
-        localStorage.setItem('formData', JSON.stringify({
-            name, email, phone, business, service, description,
-            timestamp: new Date().toISOString()
-        }));
-        
-        // Open email client
-        window.open(mailtoLink, '_blank');
-        // Add this check after window.open()
-setTimeout(() => {
-    const emailSent = confirm('Did the email client open successfully? If not, please email us directly at skylinedigitalservicess@gmail.com');
-    if (!emailSent) {
-        // Copy email to clipboard
-        navigator.clipboard.writeText('skylinedigitalservicess@gmail.com')
-            .then(() => alert('Email address copied to clipboard! Please send us an email with your details.'));
-    }
-}, 2000);
-        
-        // Show success message
-        alert('Thank you! Please send the pre-filled email that opens. If it doesn\'t open automatically, please email us at: skylinedigitalservicess@gmail.com\n\nMake sure to click "Send" in your email client.');
-        
-        // Close modal and reset form
-        modal.classList.remove('active');
-        document.body.style.overflow = 'auto';
-        
-        // Clear form
-        form.reset();
-        
-        // Optional: Redirect to thank you page or show confirmation
-        setTimeout(() => {
-            // You could add a thank you message here
-            console.log('Form submitted at:', new Date().toLocaleString());
-        }, 1000);
-    });
-}
 
         // ===== ANIMATION FUNCTIONS =====
         function initParticles() {
@@ -3602,10 +3900,4 @@ setTimeout(() => {
         }
     </script>
 </body>
-
 </html>
-
-
-
-
-
