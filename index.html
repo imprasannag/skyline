@@ -1,0 +1,3648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skyline Digital Services | Building Tomorrow's Digital Skyline</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Animation Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    
+    <style>
+        /* ===== CSS RESET & VARIABLES ===== */
+        :root {
+            --deep-night: #0a0e17;
+            --midnight-blue: #121828;
+            --neon-blue: #00f3ff;
+            --neon-purple: #9d00ff;
+            --neon-pink: #ff00c8;
+            --electric-cyan: #00ffea;
+            --glass-white: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --gradient-skyline: linear-gradient(135deg, var(--neon-purple), var(--neon-blue), var(--electric-cyan));
+            --gradient-horizontal: linear-gradient(90deg, var(--neon-purple), var(--neon-blue));
+            --gradient-diagonal: linear-gradient(45deg, var(--neon-purple), var(--neon-pink), var(--neon-blue));
+            --neon-glow: 0 0 20px rgba(0, 243, 255, 0.5);
+            --purple-glow: 0 0 20px rgba(157, 0, 255, 0.5);
+            --pink-glow: 0 0 20px rgba(255, 0, 200, 0.5);
+            --dark-card: #0f1525;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--deep-night);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* ===== TYPOGRAPHY ===== */
+        h1, h2, h3, h4, .logo-text {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+        }
+
+        .highlight {
+            background: var(--gradient-skyline);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        /* ===== GLASSMORPHISM ===== */
+        .glass {
+            background: var(--glass-white);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        /* ===== PARTICLE BACKGROUND ===== */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        /* ===== NAVIGATION ===== */
+        .navbar {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 1200px;
+            z-index: 1000;
+            padding: 1rem 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            top: 0;
+            width: 100%;
+            max-width: 100%;
+            border-radius: 0;
+            backdrop-filter: blur(20px);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-img {
+            height: 45px;
+            width: auto;
+            filter: drop-shadow(0 0 10px rgba(0, 243, 255, 0.3));
+            transition: transform 0.3s ease;
+        }
+
+        .logo-img:hover {
+            transform: scale(1.05);
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            background: linear-gradient(135deg, #ffffff, var(--neon-blue));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-skyline);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* ===== ENHANCED BUTTONS ===== */
+        .btn-primary {
+            background: linear-gradient(135deg, var(--neon-purple), var(--neon-blue));
+            border: none;
+            padding: 14px 28px;
+            border-radius: 50px;
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.4);
+            font-size: 1rem;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 0 30px rgba(0, 243, 255, 0.7);
+            transform: translateY(-3px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid var(--neon-blue);
+            padding: 12px 26px;
+            border-radius: 50px;
+            color: var(--neon-blue);
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 1rem;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(0, 243, 255, 0.1);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
+            transform: translateY(-3px);
+        }
+
+        /* NEW HERO BUTTON STYLES - FIXED VISIBILITY */
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            margin-top: 3rem;
+            opacity: 1 !important;
+            visibility: visible !important;
+            flex-wrap: wrap;
+        }
+
+        .hero-btn-get-started {
+            background: linear-gradient(135deg, var(--neon-pink), var(--neon-purple));
+            border: none;
+            padding: 16px 32px;
+            border-radius: 50px;
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 0 25px rgba(255, 0, 200, 0.4);
+            font-size: 1.1rem;
+            min-width: 200px;
+        }
+
+        .hero-btn-get-started::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .hero-btn-get-started:hover::before {
+            left: 100%;
+        }
+
+        .hero-btn-get-started:hover {
+            box-shadow: 0 0 35px rgba(255, 0, 200, 0.7);
+            transform: translateY(-3px);
+        }
+
+        .hero-btn-view-services {
+            background: transparent;
+            border: 2px solid var(--electric-cyan);
+            padding: 14px 30px;
+            border-radius: 50px;
+            color: var(--electric-cyan);
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 1.1rem;
+            min-width: 200px;
+        }
+
+        .hero-btn-view-services::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 255, 234, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .hero-btn-view-services:hover::before {
+            opacity: 1;
+        }
+
+        .hero-btn-view-services:hover {
+            background: rgba(0, 255, 234, 0.1);
+            box-shadow: 0 0 25px rgba(0, 255, 234, 0.3);
+            transform: translateY(-3px);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+        }
+
+        .bar {
+            width: 25px;
+            height: 3px;
+            background: var(--text-primary);
+            border-radius: 3px;
+            transition: 0.3s;
+        }
+
+        /* ===== HERO SECTION - FIXED ===== */
+        .hero-section {
+            min-height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            padding: 0 2rem;
+            text-align: center;
+        }
+
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .skyline-animation {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 200px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .building {
+            width: 40px;
+            height: 0;
+            background: linear-gradient(to top, var(--neon-purple), var(--neon-blue));
+            border-radius: 10px 10px 0 0;
+            position: relative;
+            opacity: 0;
+            animation: building-rise 1s ease-out forwards;
+            animation-delay: var(--delay);
+        }
+
+        .building::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 5px;
+            background: var(--electric-cyan);
+            top: 10px;
+            left: 0;
+            opacity: 0;
+            animation: window-lights 2s infinite alternate;
+            animation-delay: calc(var(--delay) + 1s);
+        }
+
+        @keyframes building-rise {
+            to {
+                height: var(--height);
+                opacity: 1;
+            }
+        }
+
+        @keyframes window-lights {
+            0%, 100% {
+                opacity: 0.2;
+                box-shadow: 0 0 5px var(--electric-cyan);
+            }
+            50% {
+                opacity: 1;
+                box-shadow: 0 0 20px var(--electric-cyan);
+            }
+        }
+
+        .neon-lines {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 2px;
+        }
+
+        .line {
+            position: absolute;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--neon-blue), transparent);
+            animation: line-flow 3s linear infinite;
+        }
+
+        .line:nth-child(2) {
+            animation-delay: 1s;
+            top: 100px;
+        }
+
+        .line:nth-child(3) {
+            animation-delay: 2s;
+            top: -100px;
+        }
+
+        @keyframes line-flow {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .title-line {
+            display: block;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: title-rise 0.8s ease-out forwards;
+        }
+
+        .title-line:nth-child(1) { animation-delay: 0.3s; }
+        .title-line:nth-child(2) { animation-delay: 0.6s; }
+        .title-line:nth-child(3) { animation-delay: 0.9s; }
+
+        @keyframes title-rise {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            opacity: 1 !important;
+            visibility: visible !important;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: fade-in 1s ease-out forwards;
+            animation-delay: 1.2s;
+        }
+
+        @keyframes fade-in {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            opacity: 0;
+            animation: fade-in 1s ease-out forwards;
+            animation-delay: 2s;
+        }
+
+        .scroll-line {
+            width: 2px;
+            height: 60px;
+            background: linear-gradient(to bottom, var(--neon-blue), transparent);
+            margin-bottom: 10px;
+            animation: scroll-bounce 2s infinite;
+        }
+
+        @keyframes scroll-bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        /* ===== SECTIONS COMMON STYLES ===== */
+        section {
+            padding: 100px 2rem;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* ===== ENHANCED PROJECTS SECTION - FIXED VISIBILITY ===== */
+        .projects-section {
+            background: linear-gradient(to bottom, rgba(10, 14, 23, 0.7), rgba(18, 24, 40, 0.9));
+        }
+
+        .projects-filter {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .filter-btn {
+            padding: 0.75rem 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-secondary);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .filter-btn.active,
+        .filter-btn:hover {
+            background: var(--gradient-skyline);
+            color: white;
+            border-color: transparent;
+            box-shadow: var(--neon-glow);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .project-card {
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            height: 380px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 1; /* Changed from 0 to 1 */
+            transform: translateY(0); /* Changed from 30px to 0 */
+        }
+
+        .project-card.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--neon-glow);
+            border-color: var(--neon-blue);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 60%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .project-card:hover .project-image {
+            transform: scale(1.05);
+        }
+
+        .project-content {
+            padding: 1.5rem;
+            background: rgba(15, 21, 37, 0.8);
+            height: 40%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .project-category {
+            display: inline-block;
+            background: var(--gradient-skyline);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .project-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #ffffff, var(--neon-blue));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .project-description {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: auto;
+        }
+
+        .tech-tag {
+            background: rgba(0, 243, 255, 0.1);
+            color: var(--neon-blue);
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            border: 1px solid rgba(0, 243, 255, 0.2);
+        }
+
+        /* ===== PROJECT DETAIL MODAL ===== */
+        .project-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 2001;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            overflow-y: auto;
+        }
+
+        .project-modal.active {
+            display: flex;
+        }
+
+        .project-modal-content {
+            width: 90%;
+            max-width: 1000px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 3rem;
+            position: relative;
+            animation: modal-appear 0.3s ease-out;
+            border-radius: 20px;
+            background: linear-gradient(135deg, rgba(15, 21, 37, 0.98), rgba(10, 14, 23, 0.98));
+            border: 1px solid rgba(0, 243, 255, 0.2);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .project-modal-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-secondary);
+            transition: color 0.3s ease;
+            background: none;
+            border: none;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            z-index: 10;
+        }
+
+        .project-modal-close:hover {
+            color: var(--neon-blue);
+            background: rgba(0, 243, 255, 0.1);
+        }
+
+        .project-modal-header {
+            margin-bottom: 2rem;
+        }
+
+        .project-modal-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+        }
+
+        .project-modal-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: var(--gradient-skyline);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .project-modal-category {
+            display: inline-block;
+            background: var(--gradient-skyline);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 1rem;
+        }
+
+        .project-modal-description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .project-modal-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .project-modal-features h4,
+        .project-modal-tech h4,
+        .project-modal-results h4 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--neon-blue);
+        }
+
+        .project-modal-features ul,
+        .project-modal-tech ul,
+        .project-modal-results ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .project-modal-features li,
+        .project-modal-tech li,
+        .project-modal-results li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.8rem;
+            margin-bottom: 0.8rem;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .project-modal-features li i,
+        .project-modal-tech li i,
+        .project-modal-results li i {
+            color: var(--neon-blue);
+            margin-top: 3px;
+            flex-shrink: 0;
+        }
+
+        .project-modal-cta {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* ===== UPDATED ABOUT SECTION WITH IMPROVED ANIMATION ===== */
+        .about-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .about-card {
+            padding: 3rem;
+            opacity: 1; /* Changed from 0 to 1 */
+            transform: translateX(0); /* Changed from -50px to 0 */
+        }
+
+        .about-card.animate {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .about-content h3 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .stat {
+            text-align: center;
+            opacity: 1; /* Changed from 0 to 1 */
+            transform: translateY(0); /* Changed from 20px to 0 */
+        }
+
+        .stat.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .stat h4 {
+            font-size: 2.5rem;
+            background: var(--gradient-skyline);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        /* IMPROVED ANIMATION FOR ABOUT SECTION */
+        .about-animation {
+            position: relative;
+            height: 400px;
+            width: 100%;
+            border-radius: 20px;
+            overflow: hidden;
+            background: rgba(10, 14, 23, 0.5);
+            border: 1px solid rgba(0, 243, 255, 0.2);
+        }
+
+        .glowing-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(40px);
+            opacity: 0.7;
+            animation: orb-float 8s infinite ease-in-out;
+        }
+
+        .orb-1 {
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, var(--neon-purple), transparent 70%);
+            top: 50px;
+            left: 50px;
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, var(--neon-blue), transparent 70%);
+            bottom: 80px;
+            right: 100px;
+            animation-delay: 1s;
+            animation-duration: 10s;
+        }
+
+        .orb-3 {
+            width: 120px;
+            height: 120px;
+            background: radial-gradient(circle, var(--neon-pink), transparent 70%);
+            top: 150px;
+            right: 50px;
+            animation-delay: 2s;
+            animation-duration: 12s;
+        }
+
+        .data-flow {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .data-node {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: var(--neon-blue);
+            border-radius: 50%;
+            box-shadow: 0 0 15px var(--neon-blue);
+            animation: node-pulse 2s infinite alternate;
+        }
+
+        .data-line {
+            position: absolute;
+            height: 2px;
+            background: linear-gradient(90deg, var(--neon-blue), transparent);
+            transform-origin: left center;
+            animation: data-flow 3s linear infinite;
+        }
+
+        @keyframes orb-float {
+            0%, 100% { transform: translate(0, 0); }
+            25% { transform: translate(30px, -20px); }
+            50% { transform: translate(-20px, 15px); }
+            75% { transform: translate(-15px, -25px); }
+        }
+
+        @keyframes node-pulse {
+            0%, 100% { transform: scale(1); opacity: 0.7; }
+            50% { transform: scale(1.5); opacity: 1; }
+        }
+
+        @keyframes data-flow {
+            0% { transform: translateX(-100%) scaleX(0); opacity: 0; }
+            50% { transform: translateX(0) scaleX(1); opacity: 1; }
+            100% { transform: translateX(100%) scaleX(0); opacity: 0; }
+        }
+
+        /* ===== SERVICES SECTION - FIXED VISIBILITY ===== */
+        .services-section {
+            background: linear-gradient(to bottom, rgba(10, 14, 23, 0.7), rgba(18, 24, 40, 0.9));
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            padding: 2rem;
+            position: relative;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 1px solid transparent;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            opacity: 1; /* Changed from 0 to 1 */
+            transform: translateY(0); /* Changed from 30px to 0 */
+        }
+
+        .service-card.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--neon-blue);
+            box-shadow: var(--neon-glow);
+        }
+
+        .service-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--gradient-skyline);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-card p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .service-cta {
+            margin-top: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .service-hover {
+            color: var(--neon-blue);
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover .service-hover {
+            transform: translateX(5px);
+        }
+
+        /* ===== WHY SKYLINE SECTION - FIXED VISIBILITY ===== */
+        .why-section {
+            background: linear-gradient(to bottom, rgba(18, 24, 40, 0.9), rgba(10, 14, 23, 0.7));
+        }
+
+        .advantages {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .advantage {
+            text-align: center;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            opacity: 1; /* Changed from 0 to 1 */
+            transform: translateY(0); /* Changed from 30px to 0 */
+        }
+
+        .advantage.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .advantage:hover {
+            transform: translateY(-5px);
+        }
+
+        .advantage-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-skyline);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+        }
+
+        /* ===== TESTIMONIALS - FIXED VISIBILITY ===== */
+        .testimonials-section {
+            background: linear-gradient(to bottom, rgba(10, 14, 23, 0.7), rgba(18, 24, 40, 0.9));
+        }
+
+        .testimonial-carousel {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .testimonial-card {
+            padding: 2rem;
+            transition: all 0.3s ease;
+            opacity: 1; /* Changed from 0 to 1 */
+            transform: translateY(0); /* Changed from 30px to 0 */
+        }
+
+        .testimonial-card.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .testimonial-card:hover {
+            transform: rotateY(5deg) rotateX(5deg);
+            box-shadow: var(--neon-glow);
+        }
+
+        .testimonial-content p {
+            font-style: italic;
+            margin-bottom: 1.5rem;
+        }
+
+        .testimonial-author h4 {
+            color: var(--neon-blue);
+            margin-bottom: 0.25rem;
+        }
+
+        /* ===== UPDATED PRICING SECTION - FIXED VISIBILITY ===== */
+        .pricing-section {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(to bottom, rgba(10, 14, 23, 0.9), rgba(18, 24, 40, 0.7));
+        }
+
+        .pricing-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+            position: relative;
+            margin-bottom: 3rem;
+        }
+
+        .pricing-card {
+            background: linear-gradient(135deg, rgba(15, 21, 37, 0.9), rgba(10, 14, 23, 0.9));
+            border-radius: 24px;
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            opacity: 1; /* Changed from 0 to 1 */
+            transform: translateY(0); /* Changed from 30px to 0 */
+        }
+
+        .pricing-card.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .pricing-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, transparent, rgba(0, 243, 255, 0.1));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .pricing-card:hover::before {
+            opacity: 1;
+        }
+
+        .pricing-card.featured {
+            border: 1px solid var(--neon-blue);
+            box-shadow: 0 0 40px rgba(0, 243, 255, 0.2);
+            transform: scale(1.05);
+        }
+
+        .pricing-card.featured::after {
+            content: 'MOST POPULAR';
+            position: absolute;
+            top: 20px;
+            right: -35px;
+            background: linear-gradient(135deg, var(--neon-purple), var(--neon-blue));
+            color: white;
+            padding: 0.5rem 2.5rem;
+            font-size: 0.8rem;
+            font-weight: 700;
+            transform: rotate(45deg);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .pricing-card.featured:hover {
+            transform: translateY(-15px) scale(1.05);
+        }
+
+        .pricing-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .pricing-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--neon-purple), var(--neon-blue));
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .pricing-title {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .pricing-price {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .price-amount {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--neon-purple), var(--neon-blue));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .price-period {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin: 2rem 0;
+            flex-grow: 1;
+        }
+
+        .pricing-features li {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding: 0.5rem 0;
+        }
+
+        .feature-icon {
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(135deg, var(--neon-purple), var(--neon-blue));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .feature-text {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .pricing-limitations {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .limitation {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 0.8rem;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.85rem;
+        }
+
+        .limitation i {
+            color: #ff4757;
+            margin-top: 2px;
+        }
+
+        .pricing-cta {
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .pricing-cta .btn-primary {
+            width: 100%;
+            padding: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ===== CONSULTATION SECTION - FIXED VISIBILITY ===== */
+        .consultation-section {
+            padding: 100px 2rem;
+            background: linear-gradient(135deg, rgba(10, 14, 23, 0.9), rgba(18, 24, 40, 0.9));
+            position: relative;
+            overflow: hidden;
+        }
+
+        .consultation-card {
+            text-align: center;
+            padding: 4rem 3rem;
+            background: linear-gradient(135deg, rgba(157, 0, 255, 0.15), rgba(0, 243, 255, 0.15));
+            border: 1px solid rgba(0, 243, 255, 0.3);
+            border-radius: 24px;
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            opacity: 1; /* Changed from 0 to 1 */
+            transform: translateY(0); /* Changed from 30px to 0 */
+        }
+
+        .consultation-card.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .consultation-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--neon-blue), transparent);
+        }
+
+        .consultation-card h3 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: var(--gradient-skyline);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .consultation-card p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            line-height: 1.6;
+        }
+
+        /* ===== TEAM SECTION - FIXED VISIBILITY ===== */
+        .team-section {
+            background: linear-gradient(to bottom, rgba(18, 24, 40, 0.9), rgba(10, 14, 23, 0.7));
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .team-card {
+            padding: 2.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            opacity: 1; /* Changed from 0 to 1 */
+            transform: translateY(0); /* Changed from 30px to 0 */
+        }
+
+        .team-card.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .team-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, transparent, rgba(0, 243, 255, 0.05));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .team-card:hover::before {
+            opacity: 1;
+        }
+
+        .team-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--neon-glow);
+        }
+
+        .team-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            border: 3px solid transparent;
+            background: linear-gradient(135deg, var(--neon-purple), var(--neon-blue)) border-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+            background-clip: padding-box;
+        }
+
+        .team-avatar.web {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .team-avatar.ai {
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+        }
+
+        .team-avatar.growth {
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+        }
+
+        .team-name {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .team-role {
+            color: var(--neon-blue);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .team-responsibilities {
+            text-align: left;
+            margin-top: 1.5rem;
+        }
+
+        .team-responsibilities h4 {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .team-responsibilities ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .team-responsibilities li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.8rem;
+            margin-bottom: 0.8rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .team-responsibilities li i {
+            color: var(--neon-blue);
+            margin-top: 3px;
+            flex-shrink: 0;
+        }
+
+        /* ===== FIXED CONTACT FORM MODAL ===== */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            overflow-y: auto;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            width: 90%;
+            max-width: 500px;
+            max-height: 85vh;
+            overflow-y: auto;
+            padding: 2.5rem;
+            position: relative;
+            animation: modal-appear 0.3s ease-out;
+            border-radius: 20px;
+            background: linear-gradient(135deg, rgba(15, 21, 37, 0.98), rgba(10, 14, 23, 0.98));
+            border: 1px solid rgba(0, 243, 255, 0.2);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        @keyframes modal-appear {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-secondary);
+            transition: color 0.3s ease;
+            background: none;
+            border: none;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            z-index: 10;
+        }
+
+        .modal-close:hover {
+            color: var(--neon-blue);
+            background: rgba(0, 243, 255, 0.1);
+        }
+
+        .modal-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .modal-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-skyline);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 1.5rem;
+        }
+
+        .modal-header h2 {
+            font-size: 2rem;
+            background: var(--gradient-skyline);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+        }
+
+        .modal-description {
+            color: var(--text-secondary);
+            text-align: center;
+            margin-bottom: 2rem;
+            line-height: 1.5;
+        }
+
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 0 2px rgba(0, 243, 255, 0.1);
+        }
+
+        .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 0.9rem;
+        }
+
+        textarea.form-control {
+            min-height: 100px;
+            resize: vertical;
+            line-height: 1.5;
+        }
+
+        select.form-control {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%2300f3ff' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 12px;
+            padding-right: 2.5rem;
+        }
+
+        .form-actions {
+            margin-top: 2rem;
+        }
+
+        .form-actions .btn-primary {
+            width: 100%;
+            padding: 0.9rem;
+            font-size: 0.95rem;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            position: relative;
+            padding: 4rem 2rem 2rem;
+            background: var(--midnight-blue);
+            overflow: hidden;
+        }
+
+        .footer-background {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+        }
+
+        .skyline-silhouette {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(to top, rgba(0, 243, 255, 0.1), transparent);
+            clip-path: polygon(
+                0% 100%, 2% 80%, 5% 90%, 8% 70%, 12% 85%, 15% 75%,
+                20% 95%, 25% 65%, 30% 100%, 35% 80%, 40% 90%, 45% 70%,
+                50% 85%, 55% 75%, 60% 95%, 65% 65%, 70% 100%, 75% 80%,
+                80% 90%, 85% 70%, 90% 85%, 95% 75%, 100% 100%
+            );
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            gap: 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-logo p {
+            margin-top: 1rem;
+            color: var(--text-secondary);
+        }
+
+        .footer-links {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .link-group h4 {
+            margin-bottom: 1rem;
+            color: var(--neon-blue);
+        }
+
+        .link-group a {
+            display: block;
+            color: var(--text-secondary);
+            text-decoration: none;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .link-group a:hover {
+            color: var(--neon-blue);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--glass-white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            background: var(--gradient-skyline);
+            transform: translateY(-3px);
+            box-shadow: var(--neon-glow);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--glass-border);
+            color: var(--text-secondary);
+        }
+
+        /* ===== WHATSAPP FLOAT ===== */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            text-decoration: none;
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.5);
+            z-index: 1000;
+            animation: pulse 2s infinite;
+            transition: all 0.3s ease;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px rgba(37, 211, 102, 0.8);
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 15px rgba(37, 211, 102, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+            }
+        }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 1024px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+            
+            .about-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .footer-links {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            }
+
+            .pricing-card.featured {
+                transform: none;
+            }
+
+            .pricing-card.featured:hover {
+                transform: translateY(-15px);
+            }
+
+            .projects-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+
+            .team-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            }
+
+            .project-modal-content {
+                max-width: 90%;
+                padding: 2rem;
+            }
+
+            .project-modal-title {
+                font-size: 2rem;
+            }
+
+            .about-animation {
+                height: 300px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem;
+            }
+            
+            .nav-menu {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                flex-direction: column;
+                background: var(--midnight-blue);
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                padding: 2rem 0;
+                backdrop-filter: blur(20px);
+                z-index: 999;
+            }
+            
+            .nav-menu.active {
+                left: 0;
+            }
+            
+            .hamburger {
+                display: flex;
+            }
+            
+            .hamburger.active .bar:nth-child(2) {
+                opacity: 0;
+            }
+            
+            .hamburger.active .bar:nth-child(1) {
+                transform: translateY(7px) rotate(45deg);
+            }
+            
+            .hamburger.active .bar:nth-child(3) {
+                transform: translateY(-7px) rotate(-45deg);
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .section-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .hero-btn-get-started,
+            .hero-btn-view-services {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .projects-filter {
+                gap: 0.5rem;
+            }
+
+            .filter-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .pricing-card.featured::after {
+                right: -25px;
+                padding: 0.5rem 1.5rem;
+                font-size: 0.7rem;
+            }
+
+            .modal-content {
+                padding: 2rem 1.5rem;
+                max-height: 80vh;
+            }
+
+            .form-actions {
+                flex-direction: column;
+            }
+
+            .logo-img {
+                height: 35px;
+            }
+
+            .logo-text {
+                font-size: 1.2rem;
+            }
+
+            .footer-links {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .consultation-card {
+                padding: 3rem 1.5rem;
+            }
+
+            .consultation-card h3 {
+                font-size: 2rem;
+            }
+
+            .project-modal-content {
+                padding: 1.5rem;
+            }
+
+            .project-modal-image {
+                height: 250px;
+            }
+
+            .project-modal-title {
+                font-size: 1.8rem;
+            }
+
+            .about-animation {
+                height: 250px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            section {
+                padding: 60px 1rem;
+            }
+            
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .service-card,
+            .about-card,
+            .team-card,
+            .pricing-card {
+                padding: 1.5rem;
+            }
+            
+            .modal-content {
+                padding: 1.5rem 1rem;
+                max-height: 85vh;
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .price-amount {
+                font-size: 2.5rem;
+            }
+
+            .project-card {
+                height: 350px;
+            }
+
+            .project-content {
+                padding: 1rem;
+            }
+
+            .logo-img {
+                height: 30px;
+            }
+
+            .logo-text {
+                font-size: 1rem;
+            }
+
+            .footer-content {
+                gap: 2rem;
+            }
+
+            .consultation-card {
+                padding: 2rem 1rem;
+            }
+
+            .consultation-card h3 {
+                font-size: 1.5rem;
+            }
+
+            .hero-btn-get-started,
+            .hero-btn-view-services {
+                width: 100%;
+                max-width: 280px;
+            }
+
+            .about-animation {
+                height: 200px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .hero-title {
+                font-size: 1.8rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .logo {
+                gap: 8px;
+            }
+            
+            .logo-img {
+                height: 25px;
+            }
+            
+            .logo-text {
+                font-size: 0.9rem;
+            }
+
+            .project-modal-content {
+                padding: 1rem;
+            }
+
+            .project-modal-title {
+                font-size: 1.5rem;
+            }   
+
+            .about-animation {
+                height: 180px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Particle Background -->
+    <div class="particles" id="particles"></div>
+    
+    <!-- Navigation -->
+    <nav class="navbar glass">
+        <div class="nav-container">
+            <a href="#hero" class="logo">
+                <img src="logo.jpg" alt="Skyline Digital Services Logo" class="logo-img">
+                <span class="logo-text">SKYLINE DIGITAL SERVICES</span>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="#hero" class="nav-link">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#services" class="nav-link">Services</a></li>
+                <li><a href="#projects" class="nav-link">Our Projects</a></li>
+                <li><a href="#why" class="nav-link">Why Us</a></li>
+                <li><a href="#pricing" class="nav-link">Pricing</a></li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section - FIXED -->
+    <section id="hero" class="hero-section">
+        <div class="hero-background">
+            <div class="skyline-animation">
+                <div class="building" style="--height: 60px; --delay: 0.1s"></div>
+                <div class="building" style="--height: 100px; --delay: 0.2s"></div>
+                <div class="building" style="--height: 80px; --delay: 0.3s"></div>
+                <div class="building" style="--height: 120px; --delay: 0.4s"></div>
+                <div class="building" style="--height: 90px; --delay: 0.5s"></div>
+                <div class="building" style="--height: 70px; --delay: 0.6s"></div>
+                <div class="building" style="--height: 110px; --delay: 0.7s"></div>
+            </div>
+            <div class="neon-lines">
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+            </div>
+        </div>
+        <div class="hero-content">
+            <h1 class="hero-title">
+                <span class="title-line">Building the</span>
+                <span class="title-line highlight">Digital Skyline</span>
+                <span class="title-line">of Tomorrow.</span>
+            </h1>
+            <p class="hero-subtitle">Elevating brands with cutting-edge digital solutions that shine above the rest.</p>
+            <div class="hero-buttons">
+                <button class="hero-btn-get-started" id="hero-cta">Get Started</button>
+                <button class="hero-btn-view-services" id="explore-services">View Services</button>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects-section">
+        <div class="section-header">
+            <h2 class="section-title">Our <span class="highlight">Projects</span></h2>
+            <p class="section-subtitle">Showcasing our digital masterpieces that elevate brands to new heights</p>
+        </div>
+        
+        <div class="projects-filter">
+            <button class="filter-btn active" data-filter="all">All Projects</button>
+            <button class="filter-btn" data-filter="web">Web Development</button>
+            <button class="filter-btn" data-filter="design">UI/UX Design</button>
+            <button class="filter-btn" data-filter="branding">Branding</button>
+            <button class="filter-btn" data-filter="marketing">Digital Marketing</button>
+        </div>
+        
+        <div class="projects-grid">
+            <!-- Project 1 -->
+            <div class="project-card glass" data-category="web" data-project="1">
+                <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="E-commerce Platform" class="project-image">
+                <div class="project-content">
+                    <div class="project-header">
+                        <div>
+                            <h3 class="project-title">Nexus E-commerce</h3>
+                            <span class="project-category">Web Development</span>
+                        </div>
+                    </div>
+                    <p class="project-description">Full-stack e-commerce platform with AI-powered recommendations and real-time inventory management.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">React</span>
+                        <span class="tech-tag">Node.js</span>
+                        <span class="tech-tag">MongoDB</span>
+                        <span class="tech-tag">Stripe API</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Project 2 -->
+            <div class="project-card glass" data-category="design" data-project="2">
+                <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Mobile App Design" class="project-image">
+                <div class="project-content">
+                    <div class="project-header">
+                        <div>
+                            <h3 class="project-title">Fintech Mobile App</h3>
+                            <span class="project-category">UI/UX Design</span>
+                        </div>
+                    </div>
+                    <p class="project-description">Modern banking app with seamless user experience, biometric security, and real-time financial insights.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Figma</span>
+                        <span class="tech-tag">Adobe XD</span>
+                        <span class="tech-tag">iOS/Android</span>
+                        <span class="tech-tag">Prototyping</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Project 3 -->
+            <div class="project-card glass" data-category="branding" data-project="3">
+                <img src="https://images.unsplash.com/photo-1567446537710-0e9b8d4d8c4d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Brand Identity" class="project-image">
+                <div class="project-content">
+                    <div class="project-header">
+                        <div>
+                            <h3 class="project-title">Zenith Tech Branding</h3>
+                            <span class="project-category">Brand Identity</span>
+                        </div>
+                    </div>
+                    <p class="project-description">Complete brand identity system including logo, typography, color palette, and brand guidelines.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Logo Design</span>
+                        <span class="tech-tag">Brand Strategy</span>
+                        <span class="tech-tag">Visual Identity</span>
+                        <span class="tech-tag">Style Guide</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Project 4 -->
+            <div class="project-card glass" data-category="web" data-project="4">
+                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Analytics Dashboard" class="project-image">
+                <div class="project-content">
+                    <div class="project-header">
+                        <div>
+                            <h3 class="project-title">Data Analytics Dashboard</h3>
+                            <span class="project-category">Web Development</span>
+                        </div>
+                    </div>
+                    <p class="project-description">Real-time business intelligence platform with interactive dashboards and predictive analytics.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Vue.js</span>
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">D3.js</span>
+                        <span class="tech-tag">Firebase</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Project 5 -->
+            <div class="project-card glass" data-category="marketing" data-project="5">
+                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Social Media Campaign" class="project-image">
+                <div class="project-content">
+                    <div class="project-header">
+                        <div>
+                            <h3 class="project-title">Viral Social Campaign</h3>
+                            <span class="project-category">Digital Marketing</span>
+                        </div>
+                    </div>
+                    <p class="project-description">Multi-platform social media campaign that generated 500% increase in engagement and brand awareness.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Instagram</span>
+                        <span class="tech-tag">Facebook Ads</span>
+                        <span class="tech-tag">Content Strategy</span>
+                        <span class="tech-tag">Analytics</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Project 6 -->
+            <div class="project-card glass" data-category="design" data-project="6">
+                <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="SaaS Platform" class="project-image">
+                <div class="project-content">
+                    <div class="project-header">
+                        <div>
+                            <h3 class="project-title">SaaS Platform Redesign</h3>
+                            <span class="project-category">UI/UX Design</span>
+                        </div>
+                    </div>
+                    <p class="project-description">Complete redesign of enterprise SaaS platform resulting in 40% improvement in user retention.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">User Research</span>
+                        <span class="tech-tag">Wireframing</span>
+                        <span class="tech-tag">Usability Testing</span>
+                        <span class="tech-tag">Design Systems</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Detail Modal -->
+    <div class="project-modal" id="projectModal">
+        <div class="project-modal-content glass">
+            <button class="project-modal-close" id="projectModalClose">&times;</button>
+            <div class="project-modal-header">
+                <img id="projectModalImage" src="" alt="Project Image" class="project-modal-image">
+                <h2 id="projectModalTitle" class="project-modal-title"></h2>
+                <span id="projectModalCategory" class="project-modal-category"></span>
+            </div>
+            
+            <div id="projectModalContent">
+                <!-- Project details will be dynamically inserted here -->
+            </div>
+            
+            <div class="project-modal-cta">
+                <button class="btn-primary" id="interestedBtn">I'm Interested in Similar Project</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="section-header">
+            <h2 class="section-title">What We <span class="highlight">Elevate</span></h2>
+            <p class="section-subtitle">Transforming visions into digital realities with cutting-edge solutions</p>
+        </div>
+        <div class="about-container">
+            <div class="about-card glass">
+                <div class="about-content">
+                    <h3>Skyline Digital Services</h3>
+                    <p>We are the architects of the digital future, building immersive experiences that connect brands with the Gen-Z audience. Our fusion of technology and creativity creates skylines that stand tall in the digital landscape.</p>
+                    <div class="stats">
+                        <div class="stat">
+                            <h4 class="counter" data-target="150">150</h4>
+                            <p>Projects Completed</p>
+                        </div>
+                        <div class="stat">
+                            <h4 class="counter" data-target="50">50</h4>
+                            <p>Businesses Scaled</p>
+                        </div>
+                        <div class="stat">
+                            <h4 class="counter" data-target="1000">1000</h4>
+                            <p>Students Trained</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="about-animation">
+                <div class="glowing-orb orb-1"></div>
+                <div class="glowing-orb orb-2"></div>
+                <div class="glowing-orb orb-3"></div>
+                <div class="data-flow" id="dataFlow"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services-section">
+        <div class="section-header">
+            <h2 class="section-title">5 Divisions of <span class="highlight">Skyline</span></h2>
+            <p class="section-subtitle">Comprehensive digital solutions for every business need</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card glass" data-service="creative">
+                <div class="service-icon">
+                    <i class="fas fa-paint-brush"></i>
+                </div>
+                <h3>Creative Studio</h3>
+                <p>Video editing, ads, graphics that capture attention and tell your story. Professional visual content that converts viewers into customers.</p>
+                <div class="service-cta">
+                    <span class="service-hover">Explore →</span>
+                </div>
+            </div>
+            <div class="service-card glass" data-service="web">
+                <div class="service-icon">
+                    <i class="fas fa-laptop-code"></i>
+                </div>
+                <h3>Web & Software Dev</h3>
+                <p>Websites, apps, systems built with cutting-edge technology. Responsive, fast, and scalable solutions for modern businesses.</p>
+                <div class="service-cta">
+                    <span class="service-hover">Explore →</span>
+                </div>
+            </div>
+            <div class="service-card glass" data-service="ai">
+                <div class="service-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <h3>AI Automation Lab</h3>
+                <p>Chatbots, models, data tools that automate and optimize. Leverage artificial intelligence to streamline operations and boost efficiency.</p>
+                <div class="service-cta">
+                    <span class="service-hover">Explore →</span>
+                </div>
+            </div>
+            <div class="service-card glass" data-service="marketing">
+                <div class="service-icon">
+                    <i class="fas fa-bullhorn"></i>
+                </div>
+                <h3>Digital Marketing</h3>
+                <p>Meta ads, branding, growth strategies that deliver results. Data-driven campaigns that maximize ROI and brand visibility.</p>
+                <div class="service-cta">
+                    <span class="service-hover">Explore →</span>
+                </div>
+            </div>
+            <div class="service-card glass" data-service="academy">
+                <div class="service-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h3>Skyline Academy</h3>
+                <p>Workshops, courses, mentorship for the next generation. Empowering individuals with cutting-edge digital skills.</p>
+                <div class="service-cta">
+                    <span class="service-hover">Explore →</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Skyline Section -->
+    <section id="why" class="why-section">
+        <div class="section-header">
+            <h2 class="section-title">Our Digital <span class="highlight">Advantage</span></h2>
+            <p class="section-subtitle">Why choose Skyline for your digital journey</p>
+        </div>
+        <div class="advantages">
+            <div class="advantage glass">
+                <div class="advantage-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <h3>Lightning Fast</h3>
+                <p>Delivering projects with speed without compromising quality. Quick turnaround times with exceptional results.</p>
+            </div>
+            <div class="advantage glass">
+                <div class="advantage-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3>Future Proof</h3>
+                <p>Using technologies that stand the test of time and trends. Scalable solutions that grow with your business.</p>
+            </div>
+            <div class="advantage glass">
+                <div class="advantage-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3>Gen-Z Focused</h3>
+                <p>Understanding and connecting with the next generation. Creating content that resonates with modern audiences.</p>
+            </div>
+            <div class="advantage glass">
+                <div class="advantage-icon">
+                    <i class="fas fa-infinity"></i>
+                </div>
+                <h3>360° Solutions</h3>
+                <p>Complete digital transformation from start to finish. End-to-end services for comprehensive brand building.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials-section">
+        <div class="section-header">
+            <h2 class="section-title">Voices That Shape the <span class="highlight">Skyline</span></h2>
+            <p class="section-subtitle">What our clients say about working with us</p>
+        </div>
+        <div class="testimonial-carousel">
+            <div class="testimonial-card glass">
+                <div class="testimonial-content">
+                    <p>"Skyline transformed our digital presence completely. The results were beyond expectations! Our engagement increased by 300% in just 3 months."</p>
+                    <div class="testimonial-author">
+                        <h4>Alex Johnson</h4>
+                        <p>CEO, TechVision Inc.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card glass">
+                <div class="testimonial-content">
+                    <p>"The AI solutions provided by Skyline have automated 70% of our manual processes. Incredible efficiency boost with minimal investment."</p>
+                    <div class="testimonial-author">
+                        <h4>Sarah Chen</h4>
+                        <p>Founder, InnovateCo</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card glass">
+                <div class="testimonial-content">
+                    <p>"Skyline Academy gave our team the skills we needed to compete in today's market. Practical knowledge that we could implement immediately."</p>
+                    <div class="testimonial-author">
+                        <h4>Michael Rodriguez</h4>
+                        <p>Training Director, GlobalCorp</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="pricing-section">
+        <div class="section-header">
+            <h2 class="section-title">Choose Your <span class="highlight">Digital Growth</span></h2>
+            <p class="section-subtitle">Transparent pricing for every stage of your digital journey</p>
+        </div>
+        
+        <div class="pricing-container">
+            <div class="pricing-grid">
+                <!-- Starter Pack -->
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <span class="pricing-badge">Starter Pack</span>
+                        <h3 class="pricing-title">Essential Launch</h3>
+                    </div>
+                    
+                    <div class="pricing-price">
+                        <div class="price-amount">₹4,999</div>
+                        <div class="price-period">One-time payment</div>
+                    </div>
+                    
+                    <ul class="pricing-features">
+                        <li>
+                            <span class="feature-icon"><i class="fas fa-check"></i></span>
+                            <span class="feature-text">1-page static website with simple layout</span>
+                        </li>
+                        <li>
+                            <span class="feature-icon"><i class="fas fa-check"></i></span>
+                            <span class="feature-text">1 short professional promo video</span>
+                        </li>
+                        <li>
+                            <span class="feature-icon"><i class="fas fa-check"></i></span>
+                            <span class="feature-text">Basic branding setup</span>
+                        </li>
+                        <li>
+                            <span class="feature-icon"><i class="fas fa-check"></i></span>
+                            <span class="feature-text">Basic SEO optimization</span>
+                        </li>
+                        <li>
+                            <span class="feature-icon"><i class="fas fa-check"></i></span>
+                            <span class="feature-text">Social media profile setup</span>
+                        </li>
+                    </ul>
+                    
+                    <div class="pricing-limitations">
+                        <div class="limitation">
+                            <i class="fas fa-times"></i>
+                            <span>No custom UI/UX design</span>
+                        </div>
+                        <div class="limitation">
+                            <i class="fas fa-times"></i>
+                            <span>No AI support or automation</span>
+                        </div>
+                        <div class="limitation">
+                            <i class="fas fa-times"></i>
+                            <span>No advanced SEO features</span>
+                        </div>
+                        <div class="limitation">
+                            <i class="fas fa-times"></i>
+                            <span>No website revisions</span>
+                        </div>
+                    </div>
+                    
+                    <div class="pricing-cta">
+                        <button class="btn-primary get-quote-btn" data-plan="starter">Get Started</button>
+                        <p class="price-period" style="margin-top: 0.5rem; font-size: 0.8rem;">Delivery: 5 days</p>
+                    </div>
+                </div>
+                
+                <!-- Growth Pack -->
+                <div class="pricing-card featured">
+                    <div class="pricing-header">
+                        <span class="pricing-badge">Growth Pack</span>
+                        <h3 class="pricing-title">Most Preferred</h3>
+                    </div>
+                    
+                    <div class="pricing-price">
+                        <div class="price-amount">₹10,000</div>
+                        <div class="price-period">One-time payment</div>
+                    </div>
+                    
+                    <ul class="pricing-features">
+                        <li>
+                            <span class="feature-icon"><i class="fas fa-check"></i></span>
+                            <span class="feature-text">3-page professional website</span>
+                        </li>
+                        <li>
+                            <span class="feature-icon"><i class="fas fa-check"></i></span>
+                            <span class="feature-text">Modern UI/UX design with animations</span>
+                        </li>
+                        <li>
+                            <span class="feature-icon"><i class="fas fa-check"></i></span>
+                            <span class="feature-text">2 promo/ad video edits</span>
+                        </li>
+                        <li>
+                            <span class="feature-icon"><i class="fas fa-check"></i></span>
+                            <span class="feature-text">15-day social media content plan</span>
+                        </li>
+                        <li>
+                            <span class="feature-icon"><i class="fas fa-check"></i></span>
+                            <span class="feature-text">SEO + keyword optimization</span>
+                        </li>
+                        <li>
+                            <span class="feature-icon"><i class="fas fa-check"></i></span>
+                            <span class="feature-text">2 rounds of design revisions</span>
+                        </li>
+                    </ul>
+                    
+                    <div class="pricing-cta">
+                        <button class="btn-primary get-quote-btn" data-plan="growth">Choose Growth Plan</button>
+                        <p class="price-period" style="margin-top: 0.5rem; font-size: 0.8rem; color: var(--neon-blue);">Best Value • Delivery: 7-10 days</p>
+                    </div>
+                </div>
+                
+                <!-- Premium Pack -->
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <span class="pricing-badge">Premium Pack</span>
+                        <h3 class="pricing-title">Full Transformation</h3>
+                    </div>
+                    
+                    <div class="pricing-price">
+                        <div class="price-amount">₹15,000</div>
+                        <div class="price-period">One-time payment</div>
+                    </div>
+                    
+                    <ul class="pricing-features">
+                        <li>
+                            <span class="feature-icon"><i class="fas fa-check"></i></span>
+                            <span class="feature-text">5-page premium website</span>
+                        </li>
+                        <li>
+                            <span class="feature-icon"><i class="fas fa-check"></i></span>
+                            <span class="feature-text">Advanced UI/UX with animations</span>
+                        </li>
+                        <li>
+                            <span class="feature-icon"><i class="fas fa-check"></i></span>
+                            <span class="feature-text">3 high-quality promotional videos</span>
+                        </li>
+                        <li>
+                            <span class="feature-icon"><i class="fas fa-check"></i></span>
+                            <span class="feature-text">1 AI tool (chatbot or automation)</span>
+                        </li>
+                        <li>
+                            <span class="feature-icon"><i class="fas fa-check"></i></span>
+                            <span class="feature-text">Full SEO package + analytics</span>
+                        </li>
+                        <li>
+                            <span class="feature-icon"><i class="fas fa-check"></i></span>
+                            <span class="feature-text">3 design revision rounds</span>
+                        </li>
+                    </ul>
+                    
+                    <div class="pricing-cta">
+                        <button class="btn-primary get-quote-btn" data-plan="premium">Go Premium</button>
+                        <p class="price-period" style="margin-top: 0.5rem; font-size: 0.8rem;">Delivery: 12-15 days</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW: Separate Consultation Section -->
+    <section id="consultation" class="consultation-section">
+        <div class="section-header">
+            <h2 class="section-title">Need <span class="highlight">Guidance?</span></h2>
+            <p class="section-subtitle">Let our experts help you choose the right path for your digital journey</p>
+        </div>
+        
+        <div class="consultation-card glass">
+            <h3>Confused About Which Plan to Choose?</h3>
+            <p>Book a free 30-minute consultation call with our experts. We'll analyze your business needs and recommend the perfect solution tailored for your growth.</p>
+            <div style="margin-top: 2rem;">
+                <button class="btn-primary get-quote-btn" data-plan="consultation" style="padding: 16px 40px; font-size: 1.1rem;">Book Free Consultation</button>
+            </div>
+            <div style="margin-top: 1.5rem; color: var(--text-secondary); font-size: 0.9rem;">
+                <i class="fas fa-check-circle" style="color: var(--neon-blue); margin-right: 8px;"></i>
+                No obligation • Expert advice • 100% Free
+            </div>
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-background">
+            <div class="skyline-silhouette"></div>
+        </div>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <a href="#hero" class="logo">
+                    <img src="logo.jpg" alt="Skyline Digital Services Logo" class="logo-img">
+                    <span class="logo-text">DIGITAL SERVICES</span>
+                </a>
+                <p>Building the digital skyline of tomorrow, today.</p>
+            </div>
+            <div class="footer-links">
+                <div class="link-group">
+                    <h4>Services</h4>
+                    <a href="#services" class="footer-nav-link">Creative Studio</a>
+                    <a href="#services" class="footer-nav-link">Web Development</a>
+                    <a href="#services" class="footer-nav-link">AI Automation</a>
+                    <a href="#services" class="footer-nav-link">Digital Marketing</a>
+                    <a href="#services" class="footer-nav-link">Skyline Academy</a>
+                </div>
+                <div class="link-group">
+                    <h4>Company</h4>
+                    <a href="#about" class="footer-nav-link">About Us</a>
+                    <a href="#projects" class="footer-nav-link">Our Projects</a>
+                    <a href="#testimonials" class="footer-nav-link">Testimonials</a>
+                    <a href="#pricing" class="footer-nav-link">Pricing</a>
+                    <a href="#team" class="footer-nav-link">Our Team</a>
+                </div>
+                <div class="link-group">
+                    <h4>Legal</h4>
+                    <a href="#" class="footer-nav-link">Privacy Policy</a>
+                    <a href="#" class="footer-nav-link">Terms of Service</a>
+                    <a href="#" class="footer-nav-link">Cookie Policy</a>
+                </div>
+            </div>
+            <div class="footer-social">
+                <h4>Follow Our Skyline</h4>
+                <div class="social-icons">
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-dribbble"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Skyline Digital Services. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Float -->
+    <a href="https://wa.me/8248648023" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Contact Form Modal -->
+    <div class="modal" id="contactModal">
+        <div class="modal-content glass">
+            <button class="modal-close" id="modalClose">&times;</button>
+            <div class="modal-header">
+                <div class="modal-icon">
+                    <i class="fas fa-rocket"></i>
+                </div>
+                <h2 id="modalTitle">Start Your Digital Journey</h2>
+                <p class="modal-description" id="modalDescription">Fill out the form below and our team will get back to you within 24 hours.</p>
+            </div>
+            
+            <form id="contactForm">
+                <div class="form-group">
+                    <label for="name" class="form-label">Full Name *</label>
+                    <input type="text" id="name" class="form-control" placeholder="Enter your full name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email" class="form-label">Email Address *</label>
+                    <input type="email" id="email" class="form-control" placeholder="Enter your email address" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone" class="form-label">Phone Number *</label>
+                    <input type="tel" id="phone" class="form-control" placeholder="Enter your phone number" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="business" class="form-label">About Your Business *</label>
+                    <input type="text" id="business" class="form-control" placeholder="What does your business do?" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="service" class="form-label">Service Interested In *</label>
+                    <select id="service" class="form-control" required>
+                        <option value="" disabled selected>Select a service</option>
+                        <option value="creative">Creative Studio</option>
+                        <option value="web">Web & Software Development</option>
+                        <option value="ai">AI Automation Lab</option>
+                        <option value="marketing">Digital Marketing</option>
+                        <option value="academy">Skyline Academy</option>
+                        <option value="starter">Starter Pack (₹4,999)</option>
+                        <option value="growth">Growth Pack (₹10,000)</option>
+                        <option value="premium">Premium Pack (₹15,000)</option>
+                        <option value="consultation">Free Consultation</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="description" class="form-label">Project Description *</label>
+                    <textarea id="description" class="form-control" placeholder="Tell us about your project requirements, goals, and timeline..." required></textarea>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary">Submit Request</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // ===== MAIN JAVASCRIPT =====
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize everything
+            initParticles();
+            initCounters();
+            initScrollAnimations();
+            setupMobileMenu();
+            setupNavbarScroll();
+            setupSmoothScroll();
+            initProjectsFilter();
+            initServiceCards();
+            initPricingButtons();
+            initContactForm();
+            initProjectDetails();
+            initExploreServices();
+            initDataFlow();
+            
+            // Preloader
+            const preloader = document.createElement('div');
+            preloader.className = 'preloader';
+            preloader.innerHTML = `
+                <div class="preloader-content">
+                    <div class="preloader-logo">
+                        <span class="logo-text">SKYLINE<span style="color: var(--neon-blue); margin-left: 5px;">DIGITAL</span></span>
+                    </div>
+                    <div class="preloader-progress">
+                        <div class="progress-bar"></div>
+                    </div>
+                </div>
+            `;
+            
+            const preloaderStyle = document.createElement('style');
+            preloaderStyle.textContent = `
+                .preloader {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: var(--deep-night);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    z-index: 9999;
+                    transition: opacity 0.5s ease, visibility 0.5s ease;
+                }
+                .preloader-content { text-align: center; }
+                .preloader-logo {
+                    margin-bottom: 30px;
+                    font-size: 2rem;
+                }
+                .preloader-progress {
+                    width: 200px;
+                    height: 3px;
+                    background: rgba(255, 255, 255, 0.1);
+                    border-radius: 3px;
+                    overflow: hidden;
+                }
+                .progress-bar {
+                    width: 0%;
+                    height: 100%;
+                    background: var(--gradient-skyline);
+                    animation: loading 2s ease-in-out forwards;
+                }
+                @keyframes loading { 0% { width: 0%; } 100% { width: 100%; } }
+                .preloader.hidden { opacity: 0; visibility: hidden; }
+            `;
+            document.head.appendChild(preloaderStyle);
+            document.body.appendChild(preloader);
+            
+            window.addEventListener('load', () => {
+                setTimeout(() => {
+                    preloader.classList.add('hidden');
+                    setTimeout(() => preloader.remove(), 500);
+                }, 1500);
+            });
+        });
+
+        // Initialize data flow animation for about section
+        function initDataFlow() {
+            const dataFlow = document.getElementById('dataFlow');
+            if (!dataFlow) return;
+            
+            // Create data nodes
+            for (let i = 0; i < 20; i++) {
+                const node = document.createElement('div');
+                node.className = 'data-node';
+                
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+                
+                node.style.left = `${x}%`;
+                node.style.top = `${y}%`;
+                node.style.animationDelay = `${Math.random() * 2}s`;
+                
+                dataFlow.appendChild(node);
+            }
+            
+            // Create data lines
+            for (let i = 0; i < 15; i++) {
+                const line = document.createElement('div');
+                line.className = 'data-line';
+                
+                const startX = Math.random() * 100;
+                const startY = Math.random() * 100;
+                const length = 30 + Math.random() * 50;
+                const angle = Math.random() * 360;
+                
+                line.style.left = `${startX}%`;
+                line.style.top = `${startY}%`;
+                line.style.width = `${length}px`;
+                line.style.transform = `rotate(${angle}deg)`;
+                line.style.animationDelay = `${Math.random() * 3}s`;
+                
+                dataFlow.appendChild(line);
+            }
+        }
+
+        function initExploreServices() {
+            const exploreBtn = document.getElementById('explore-services');
+            if (exploreBtn) {
+                exploreBtn.addEventListener('click', () => {
+                    document.querySelector('#services').scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            }
+        }
+
+        function initProjectDetails() {
+            const projectCards = document.querySelectorAll('.project-card');
+            const projectModal = document.getElementById('projectModal');
+            const projectModalClose = document.getElementById('projectModalClose');
+            const interestedBtn = document.getElementById('interestedBtn');
+            
+            // Project data for details
+            const projectData = {
+                1: {
+                    title: "Nexus E-commerce",
+                    category: "Web Development",
+                    image: "https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80",
+                    description: "A full-stack e-commerce platform designed to provide seamless shopping experiences with AI-powered recommendations and real-time inventory management.",
+                    features: [
+                        "AI-powered product recommendations",
+                        "Real-time inventory tracking system",
+                        "Secure payment gateway integration",
+                        "Multi-vendor marketplace support",
+                        "Advanced customer analytics dashboard",
+                        "Mobile-responsive design"
+                    ],
+                    tech: [
+                        "React.js for frontend",
+                        "Node.js with Express backend",
+                        "MongoDB database",
+                        "Redis for caching",
+                        "Stripe for payments",
+                        "AWS for hosting"
+                    ],
+                    results: [
+                        "40% increase in conversion rates",
+                        "60% reduction in cart abandonment",
+                        "75% faster page load times",
+                        "500+ daily active users"
+                    ]
+                },
+                2: {
+                    title: "Fintech Mobile App",
+                    category: "UI/UX Design",
+                    image: "https://images.unsplash.com/photo-1561070791-2526d30994b5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80",
+                    description: "A modern banking application with seamless user experience, biometric security, and real-time financial insights for the next generation of digital banking.",
+                    features: [
+                        "Biometric authentication (Face ID/Touch ID)",
+                        "Real-time transaction notifications",
+                        "AI-powered spending insights",
+                        "Investment portfolio tracker",
+                        "Bill payment scheduler",
+                        "Dark/Light mode support"
+                    ],
+                    tech: [
+                        "Figma for design",
+                        "React Native for cross-platform",
+                        "Firebase for backend",
+                        "Plaid API for banking integration",
+                        "Apple Pay/Google Pay integration"
+                    ],
+                    results: [
+                        "4.8-star rating on App Store",
+                        "100,000+ downloads in first month",
+                        "90% user retention rate",
+                        "45% increase in user engagement"
+                    ]
+                },
+                3: {
+                    title: "Zenith Tech Branding",
+                    category: "Brand Identity",
+                    image: "https://images.unsplash.com/photo-1567446537710-0e9b8d4d8c4d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80",
+                    description: "Complete brand identity system for a tech startup, including logo design, typography, color palette, and comprehensive brand guidelines.",
+                    features: [
+                        "Modern geometric logo design",
+                        "Custom typography system",
+                        "Vibrant color palette",
+                        "Brand voice and messaging guide",
+                        "Social media template kit",
+                        "Stationery design package"
+                    ],
+                    tech: [
+                        "Adobe Illustrator",
+                        "Adobe Photoshop",
+                        "InDesign for guidelines",
+                        "After Effects for animations"
+                    ],
+                    results: [
+                        "Consistent brand recognition",
+                        "300% increase in brand awareness",
+                        "Award-winning design",
+                        "Successful rebranding launch"
+                    ]
+                },
+                4: {
+                    title: "Data Analytics Dashboard",
+                    category: "Web Development",
+                    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80",
+                    description: "Real-time business intelligence platform with interactive dashboards and predictive analytics for data-driven decision making.",
+                    features: [
+                        "Real-time data visualization",
+                        "Interactive dashboards",
+                        "Predictive analytics",
+                        "Custom report generation",
+                        "Data export functionality",
+                        "Role-based access control"
+                    ],
+                    tech: [
+                        "Vue.js for frontend",
+                        "Python with Django backend",
+                        "D3.js for charts",
+                        "PostgreSQL database",
+                        "WebSocket for real-time updates"
+                    ],
+                    results: [
+                        "80% faster data analysis",
+                        "Real-time decision making",
+                        "30% increase in operational efficiency",
+                        "Scalable to handle millions of data points"
+                    ]
+                },
+                5: {
+                    title: "Viral Social Campaign",
+                    category: "Digital Marketing",
+                    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80",
+                    description: "Multi-platform social media campaign that generated unprecedented engagement and brand awareness through strategic content creation.",
+                    features: [
+                        "Multi-platform content strategy",
+                        "Influencer partnerships",
+                        "Interactive content creation",
+                        "Hashtag campaigns",
+                        "User-generated content drives",
+                        "Performance analytics"
+                    ],
+                    tech: [
+                        "Instagram & Facebook Ads",
+                        "TikTok content creation",
+                        "Google Analytics",
+                        "Social media management tools",
+                        "Content scheduling platforms"
+                    ],
+                    results: [
+                        "500% increase in engagement",
+                        "2 million+ reach",
+                        "50,000+ new followers",
+                        "200% ROI on ad spend"
+                    ]
+                },
+                6: {
+                    title: "SaaS Platform Redesign",
+                    category: "UI/UX Design",
+                    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80",
+                    description: "Complete redesign of enterprise SaaS platform focusing on improving user experience and increasing retention through intuitive design.",
+                    features: [
+                        "User research and testing",
+                        "Information architecture redesign",
+                        "Wireframing and prototyping",
+                        "Design system creation",
+                        "Accessibility improvements",
+                        "Mobile-first approach"
+                    ],
+                    tech: [
+                        "Figma for design",
+                        "UserTesting for research",
+                        "Hotjar for analytics",
+                        "Storybook for components"
+                    ],
+                    results: [
+                        "40% improvement in user retention",
+                        "65% faster task completion",
+                        "90% user satisfaction rate",
+                        "Reduced support tickets by 50%"
+                    ]
+                }
+            };
+
+            // Add click event to project cards
+            projectCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    const projectId = card.getAttribute('data-project');
+                    const project = projectData[projectId];
+                    
+                    if (project) {
+                        // Update modal content
+                        document.getElementById('projectModalImage').src = project.image;
+                        document.getElementById('projectModalTitle').textContent = project.title;
+                        document.getElementById('projectModalCategory').textContent = project.category;
+                        
+                        // Build project details HTML
+                        const detailsHtml = `
+                            <p class="project-modal-description">${project.description}</p>
+                            
+                            <div class="project-modal-details">
+                                <div class="project-modal-features">
+                                    <h4>Key Features</h4>
+                                    <ul>
+                                        ${project.features.map(feature => `<li><i class="fas fa-check"></i> ${feature}</li>`).join('')}
+                                    </ul>
+                                </div>
+                                
+                                <div class="project-modal-tech">
+                                    <h4>Technologies Used</h4>
+                                    <ul>
+                                        ${project.tech.map(tech => `<li><i class="fas fa-cog"></i> ${tech}</li>`).join('')}
+                                    </ul>
+                                </div>
+                                
+                                <div class="project-modal-results">
+                                    <h4>Results & Impact</h4>
+                                    <ul>
+                                        ${project.results.map(result => `<li><i class="fas fa-chart-line"></i> ${result}</li>`).join('')}
+                                    </ul>
+                                </div>
+                            </div>
+                        `;
+                        
+                        document.getElementById('projectModalContent').innerHTML = detailsHtml;
+                        
+                        // Show modal
+                        projectModal.classList.add('active');
+                        document.body.style.overflow = 'hidden';
+                    }
+                });
+            });
+
+            // Close project modal
+            projectModalClose.addEventListener('click', () => {
+                projectModal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+
+            // Close modal when clicking outside
+            projectModal.addEventListener('click', (e) => {
+                if (e.target === projectModal) {
+                    projectModal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+
+            // Interested button in project modal
+            interestedBtn.addEventListener('click', () => {
+                projectModal.classList.remove('active');
+                const modal = document.getElementById('contactModal');
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+        }
+
+        function initProjectsFilter() {
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const projectCards = document.querySelectorAll('.project-card');
+            
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Remove active class from all buttons
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    // Add active class to clicked button
+                    btn.classList.add('active');
+                    
+                    const filter = btn.getAttribute('data-filter');
+                    
+                    // Filter project cards
+                    projectCards.forEach(card => {
+                        const category = card.getAttribute('data-category');
+                        
+                        if (filter === 'all' || filter === category) {
+                            card.style.display = 'block';
+                            setTimeout(() => {
+                                card.style.opacity = '1';
+                                card.style.transform = 'translateY(0)';
+                            }, 10);
+                        } else {
+                            card.style.opacity = '0';
+                            card.style.transform = 'translateY(20px)';
+                            setTimeout(() => {
+                                card.style.display = 'none';
+                            }, 300);
+                        }
+                    });
+                });
+            });
+        }
+
+        function initServiceCards() {
+            const serviceCards = document.querySelectorAll('.service-card');
+            const modal = document.getElementById('contactModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalDescription = document.getElementById('modalDescription');
+            const serviceSelect = document.getElementById('service');
+            
+            serviceCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    const service = card.getAttribute('data-service');
+                    let title = '';
+                    let description = '';
+                    
+                    switch(service) {
+                        case 'creative':
+                            title = 'Creative Studio Services';
+                            description = 'Tell us about your video, graphic, or ad requirements.';
+                            break;
+                        case 'web':
+                            title = 'Web & Software Development';
+                            description = 'Share your website or application development needs.';
+                            break;
+                        case 'ai':
+                            title = 'AI Automation Lab';
+                            description = 'Describe the automation or AI solution you need.';
+                            break;
+                        case 'marketing':
+                            title = 'Digital Marketing Services';
+                            description = 'Share your marketing goals and target audience.';
+                            break;
+                        case 'academy':
+                            title = 'Skyline Academy';
+                            description = 'Tell us what skills or training you\'re interested in.';
+                            break;
+                    }
+                    
+                    modalTitle.textContent = title;
+                    modalDescription.textContent = description;
+                    serviceSelect.value = service;
+                    
+                    modal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                });
+            });
+        }
+
+        function initPricingButtons() {
+            const pricingButtons = document.querySelectorAll('.get-quote-btn');
+            const modal = document.getElementById('contactModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalDescription = document.getElementById('modalDescription');
+            const serviceSelect = document.getElementById('service');
+            
+            pricingButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const plan = btn.getAttribute('data-plan');
+                    let title = '';
+                    let description = '';
+                    
+                    switch(plan) {
+                        case 'starter':
+                            title = 'Starter Pack - ₹4,999';
+                            description = 'Perfect for basic online presence without extensive branding.';
+                            break;
+                        case 'growth':
+                            title = 'Growth Pack - ₹10,000';
+                            description = 'Most preferred option for businesses ready to scale.';
+                            break;
+                        case 'premium':
+                            title = 'Premium Pack - ₹15,000';
+                            description = 'Complete digital transformation with AI support.';
+                            break;
+                        case 'consultation':
+                            title = 'Free Consultation Call';
+                            description = 'Book a 30-minute call with our experts.';
+                            break;
+                    }
+                    
+                    modalTitle.textContent = title;
+                    modalDescription.textContent = description;
+                    serviceSelect.value = plan;
+                    
+                    modal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                });
+            });
+        }
+
+   function initContactForm() {
+    const modal = document.getElementById('contactModal');
+    const closeBtn = document.getElementById('modalClose');
+    const form = document.getElementById('contactForm');
+    const heroCta = document.getElementById('hero-cta');
+    
+    // Open modal from hero CTA
+    if (heroCta) {
+        heroCta.addEventListener('click', () => {
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+    }
+    
+    // Close modal
+    closeBtn.addEventListener('click', () => {
+        modal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    });
+    
+    // Close modal when clicking outside
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+    });
+    
+    // Form submission using mailto
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        // Get form data
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const phone = document.getElementById('phone').value;
+        const business = document.getElementById('business').value;
+        const service = document.getElementById('service').value;
+        const description = document.getElementById('description').value;
+        
+        // Format date and time
+        const now = new Date();
+        const date = now.toLocaleDateString();
+        const time = now.toLocaleTimeString();
+        
+        // Create email content
+        const subject = `New Inquiry: ${service} - ${name}`;
+        // Alternative email body template (more professional)
+const body = `
+==================================================
+NEW CLIENT INQUIRY - SKYLINE DIGITAL SERVICES
+==================================================
+
+📅 SUBMISSION DATE: ${date}
+⏰ SUBMISSION TIME: ${time}
+
+👤 CLIENT DETAILS
+────────────────────
+• Full Name: ${name}
+• Email Address: ${email}
+• Phone Number: ${phone}
+• Business Type: ${business}
+
+🎯 SERVICE REQUESTED
+────────────────────
+• Service: ${service}
+
+📋 PROJECT DESCRIPTION
+────────────────────
+${description}
+
+==================================================
+Submitted via Skyline Digital Services Website
+Website: [Your Website URL]
+==================================================
+        `.trim();
+        
+        // Create mailto link
+        const mailtoLink = `mailto:skylinedigitalservicess@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        
+        // Store form data in localStorage temporarily
+        localStorage.setItem('formData', JSON.stringify({
+            name, email, phone, business, service, description,
+            timestamp: new Date().toISOString()
+        }));
+        
+        // Open email client
+        window.open(mailtoLink, '_blank');
+        // Add this check after window.open()
+setTimeout(() => {
+    const emailSent = confirm('Did the email client open successfully? If not, please email us directly at skylinedigitalservicess@gmail.com');
+    if (!emailSent) {
+        // Copy email to clipboard
+        navigator.clipboard.writeText('skylinedigitalservicess@gmail.com')
+            .then(() => alert('Email address copied to clipboard! Please send us an email with your details.'));
+    }
+}, 2000);
+        
+        // Show success message
+        alert('Thank you! Please send the pre-filled email that opens. If it doesn\'t open automatically, please email us at: skylinedigitalservicess@gmail.com\n\nMake sure to click "Send" in your email client.');
+        
+        // Close modal and reset form
+        modal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+        
+        // Clear form
+        form.reset();
+        
+        // Optional: Redirect to thank you page or show confirmation
+        setTimeout(() => {
+            // You could add a thank you message here
+            console.log('Form submitted at:', new Date().toLocaleString());
+        }, 1000);
+    });
+}
+
+        // ===== ANIMATION FUNCTIONS =====
+        function initParticles() {
+            const particlesContainer = document.getElementById('particles');
+            if (!particlesContainer) return;
+            
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                const size = Math.random() * 3 + 1;
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100;
+                const duration = Math.random() * 20 + 10;
+                const delay = Math.random() * 5;
+                
+                particle.style.cssText = `
+                    position: absolute;
+                    width: ${size}px;
+                    height: ${size}px;
+                    background: var(--neon-blue);
+                    border-radius: 50%;
+                    left: ${posX}%;
+                    top: ${posY}%;
+                    opacity: ${Math.random() * 0.5 + 0.2};
+                    filter: blur(${Math.random()}px);
+                    animation: particle-float ${duration}s ease-in-out infinite;
+                    animation-delay: ${delay}s;
+                `;
+                particlesContainer.appendChild(particle);
+            }
+            
+            const particleStyle = document.createElement('style');
+            particleStyle.textContent = `
+                @keyframes particle-float {
+                    0%, 100% { 
+                        transform: translate(0, 0) scale(1); 
+                        opacity: ${Math.random() * 0.5 + 0.2}; 
+                    }
+                    25% { 
+                        transform: translate(${Math.random() * 20 - 10}px, ${Math.random() * 20 - 10}px) scale(${Math.random() * 0.5 + 0.8}); 
+                    }
+                    50% { 
+                        transform: translate(${Math.random() * 30 - 15}px, ${Math.random() * 30 - 15}px) scale(${Math.random() * 0.3 + 0.7}); 
+                        opacity: ${Math.random() * 0.3 + 0.1}; 
+                    }
+                    75% { 
+                        transform: translate(${Math.random() * 20 - 10}px, ${Math.random() * 20 - 10}px) scale(${Math.random() * 0.5 + 0.8}); 
+                    }
+                }
+            `;
+            document.head.appendChild(particleStyle);
+        }
+
+        function initCounters() {
+            const counters = document.querySelectorAll('.counter');
+            if (!counters.length) return;
+            
+            // Set initial values
+            counters.forEach(counter => {
+                const target = parseInt(counter.getAttribute('data-target'));
+                counter.textContent = target;
+            });
+        }
+
+        function initScrollAnimations() {
+            if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+            
+            gsap.registerPlugin(ScrollTrigger);
+            
+            // Animate section headers
+            gsap.utils.toArray('.section-header').forEach(header => {
+                gsap.from(header, {
+                    scrollTrigger: {
+                        trigger: header,
+                        start: "top 80%",
+                        toggleActions: "play none none reverse"
+                    },
+                    y: 50,
+                    opacity: 0,
+                    duration: 1,
+                    ease: "power2.out"
+                });
+            });
+            
+            // Service cards animation
+            gsap.utils.toArray('.service-card').forEach((card, i) => {
+                gsap.from(card, {
+                    scrollTrigger: {
+                        trigger: card,
+                        start: "top bottom-=100",
+                        toggleActions: "play none none reverse"
+                    },
+                    y: 50,
+                    opacity: 0,
+                    duration: 0.8,
+                    delay: i * 0.1,
+                    ease: "power2.out"
+                });
+            });
+            
+            // Project cards animation
+            gsap.utils.toArray('.project-card').forEach((card, i) => {
+                gsap.from(card, {
+                    scrollTrigger: {
+                        trigger: card,
+                        start: "top bottom-=100",
+                        toggleActions: "play none none reverse"
+                    },
+                    y: 50,
+                    opacity: 0,
+                    duration: 0.8,
+                    delay: i * 0.1,
+                    ease: "power2.out"
+                });
+            });
+            
+            // Team cards animation
+            gsap.utils.toArray('.team-card').forEach((card, i) => {
+                gsap.from(card, {
+                    scrollTrigger: {
+                        trigger: card,
+                        start: "top bottom-=100",
+                        toggleActions: "play none none reverse"
+                    },
+                    y: 50,
+                    opacity: 0,
+                    duration: 0.8,
+                    delay: i * 0.1,
+                    ease: "power2.out"
+                });
+            });
+            
+            // Pricing cards animation
+            gsap.utils.toArray('.pricing-card').forEach((card, i) => {
+                gsap.from(card, {
+                    scrollTrigger: {
+                        trigger: card,
+                        start: "top bottom-=50",
+                        toggleActions: "play none none reverse"
+                    },
+                    y: 50,
+                    opacity: 0,
+                    duration: 0.6,
+                    delay: i * 0.2,
+                    ease: "back.out(1.7)"
+                });
+            });
+            
+            // Consultation card animation
+            const consultationCard = document.querySelector('.consultation-card');
+            if (consultationCard) {
+                gsap.from(consultationCard, {
+                    scrollTrigger: {
+                        trigger: consultationCard,
+                        start: "top bottom-=50",
+                        toggleActions: "play none none reverse"
+                    },
+                    y: 50,
+                    opacity: 0,
+                    duration: 1,
+                    ease: "power2.out"
+                });
+            }
+        }
+
+        function setupMobileMenu() {
+            const hamburger = document.querySelector('.hamburger');
+            const navMenu = document.querySelector('.nav-menu');
+            
+            if (hamburger && navMenu) {
+                hamburger.addEventListener('click', () => {
+                    hamburger.classList.toggle('active');
+                    navMenu.classList.toggle('active');
+                });
+                
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.addEventListener('click', () => {
+                        hamburger.classList.remove('active');
+                        navMenu.classList.remove('active');
+                    });
+                });
+            }
+        }
+
+        function setupNavbarScroll() {
+            const navbar = document.querySelector('.navbar');
+            if (!navbar) return;
+            
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+        }
+
+        function setupSmoothScroll() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        e.preventDefault();
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                        
+                        // Close mobile menu if open
+                        const hamburger = document.querySelector('.hamburger');
+                        const navMenu = document.querySelector('.nav-menu');
+                        if (hamburger && navMenu && hamburger.classList.contains('active')) {
+                            hamburger.classList.remove('active');
+                            navMenu.classList.remove('active');
+                        }
+                    }
+                });
+            });
+        }
+    </script>
+</body>
+</html>
